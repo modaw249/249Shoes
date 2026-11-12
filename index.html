@@ -56,6 +56,39 @@ try{const s=JSON.parse(localStorage.getItem(KEY));if(valid(s))store=s;const c=JS
 const sv=k=>store.settings[k]??defaults.settings[k]??'';
 const money=v=>new Intl.NumberFormat('en-US').format(v)+' '+store.settings.currency;
 function toast(t){$('toast').textContent=t;$('toast').classList.remove('hidden');clearTimeout(toast.timer);toast.timer=setTimeout(()=>$('toast').classList.add('hidden'),4500);}
+async function loadStoreFromSupabase() {
+  try {
+    const [productsResult, settingsResult] = await Promise.all([
+      supabaseClient
+        .from('store_products')
+        .select('id, data, sort_order')
+        .order('sort_order', { ascending: true }),
+
+      supabaseClient
+        .from('store_settings')
+        .select('data')
+        .eq('id', 1)
+        .maybeSingle()
+    ]);
+
+    if (productsResult.error) throw productsResult.error;
+    if (settingsResult.error) throw settingsResult.error;
+
+    if (productsResult.data && productsResult.data.length > 0) {
+      store.products = productsResult.data.map(row => row.data);
+    }
+
+    if (settingsResult.data) {
+      store.settings = settingsResult.data.data;
+    }
+
+    return true;
+  } catch (error) {
+    console.error('Supabase loading error:', error);
+    toast('تعذر تحميل بيانات المتجر من قاعدة البيانات.');
+    return false;
+  }
+}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(store));return true;}catch(e){toast('تعذر الحفظ في المتصفح. نزّل ملف HTML لحفظ تعديلاتك.');return false;}}
 function saveCart(){cart=cart.filter(x=>{const p=store.products.find(p=>p.id===x.id);return p&&p.available&&p.sizes.includes(x.size);});try{localStorage.setItem(CART,JSON.stringify(cart));}catch(e){}all('[data-cart-count]').forEach(el=>el.textContent=cart.reduce((s,x)=>s+x.qty,0));}
 function wa(message){return 'https://wa.me/'+store.settings.phone.replace(/\D/g,'')+'?text='+encodeURIComponent(message);}
