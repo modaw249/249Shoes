@@ -94,31 +94,4 @@ $('year').textContent=new Date().getFullYear();setFilter('all');
 <script>window.onload=function(){var d=document.createElement("div");d.id="appLoadFinished";document.body.appendChild(d);};</script>
 
 
-<script>
-const manifest = document.createElement("link");
-manifest.rel = "manifest";
-manifest.href = "./manifest.json";
-document.head.appendChild(manifest);
-
-const theme = document.createElement("meta");
-theme.name = "theme-color";
-theme.content = "#151515";
-document.head.appendChild(theme);
-
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./service-worker.js");
-  });
-}
-</script>
-
-<script>
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", function () {
-    navigator.serviceWorker.register("./service-worker.js")
-      .catch(console.error);
-  });
-}
-</script>
-
 <div id="appLoadFinished"></div></body></html>
