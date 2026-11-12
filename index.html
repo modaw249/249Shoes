@@ -79,7 +79,41 @@ function renderCart(){saveCart();const total=cart.reduce((s,x)=>s+store.products
 all('[data-cart-open]').forEach(b=>b.addEventListener('click',()=>{renderCart();show('cartDialog');}));
 $('sizeGuide').addEventListener('click',()=>show('guideDialog'));$('sizeRows').innerHTML=[['39','24.5'],['40','25'],['41','26'],['42','26.5'],['43','27.5'],['44','28'],['45','29']].map(([s,l])=>`<tr class="border-b border-zinc-200"><td class="p-3 font-display">${s}</td><td class="p-3 font-display">${l}</td></tr>`).join('');
 function adminList(){$('adminProducts').innerHTML=store.products.map(p=>`<div class="flex gap-3 bg-white p-3 rounded-xl border border-zinc-200"><img src="${esc(safeImage(p.image))}" alt="${esc(p.name)}" class="w-16 h-16 object-cover rounded-lg"><div class="flex-1"><p class="text-sm font-bold">${esc(p.name)}</p><p class="text-xs text-zinc-500 mt-1">${esc(money(p.price))} · ${p.available?'متاح':'غير متوفر'}</p><div class="flex gap-4 mt-2"><button data-edit="${esc(p.id)}" class="text-xs underline">تعديل</button><button data-delete="${esc(p.id)}" class="text-xs text-red-700">حذف</button></div></div></div>`).join('');}
-$('adminOpen').addEventListener('click',()=>{applySettings();adminList();show('adminDialog');});
+$('adminOpen').addEventListener('click', async () => {
+  let { data: { session } } = await supabaseClient.auth.getSession();
+
+  if (!session) {
+    const email = prompt('249s7oes.gmail.com:');
+    if (!email) return;
+
+    const password = prompt('wdrabkSD123:');
+    if (!password) return;
+
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+      email,
+      password
+    });
+
+    if (error) {
+      toast('فشل تسجيل الدخول: ' + error.message);
+      return;
+    }
+
+    session = data.session;
+  }
+
+  const { data: isAdmin, error } = await supabaseClient.rpc('is_store_admin');
+
+  if (error || !isAdmin) {
+    await supabaseClient.auth.signOut();
+    toast('هذا الحساب ليس حساب مدير.');
+    return;
+  }
+
+  applySettings();
+  adminList();
+  show('adminDialog');
+});
 $('settingsForm').addEventListener('submit',e=>{e.preventDefault();const f=e.target;const logo=uploadLogo||f.elements.logo.value.trim();if(!safeImage(logo)){toast('استخدم رابط صورة آمن أو ارفع الشعار.');return;}for(const k of ['name','tagline','currency','delivery'])store.settings[k]=f.elements[k].value.trim();store.settings.announcement=f.elements.announcement.value.trim();store.settings.marquee=f.elements.marquee.value.split('\n').map(x=>x.trim()).filter(Boolean).join('\n');for(const k of ['announcementColor','announcementFont','marqueeColor','marqueeFont','ctaTitleColor','ctaTextColor'])store.settings[k]=f.elements[k].value;store.settings.ctaTitle=f.elements.ctaTitle.value.trim();store.settings.ctaText=f.elements.ctaText.value.trim();store.settings.phone=f.elements.phone.value.replace(/\D/g,'');store.settings.logo=logo;uploadLogo='';if(save())toast('تم حفظ إعدادات المتجر على هذا الجهاز.');render();adminList();});
 function renderFormImages(){$('imageList').innerHTML=formImages.map((u,i)=>`<div class="relative"><img src="${esc(safeImage(u))}" alt="صورة ${i+1}" class="w-full h-20 object-cover rounded-lg ${i?'border border-zinc-200':'border-2 border-orange'}"><button type="button" data-img-remove="${i}" aria-label="حذف الصورة" class="absolute top-1 left-1 w-6 h-6 rounded-full bg-white/95 text-red-700 text-xs shadow"><i class="fa-solid fa-xmark"></i></button>${i?`<button type="button" data-img-main="${i}" class="absolute bottom-1 right-1 left-1 bg-white/95 rounded text-[10px] py-0.5">اجعلها رئيسية</button>`:`<span class="absolute bottom-1 right-1 left-1 bg-orange text-ink rounded text-[10px] py-0.5 text-center font-bold">الرئيسية</span>`}</div>`).join('');}
 function editProduct(id){const p=store.products.find(p=>p.id===id);const f=$('productForm');f.reset();f.classList.remove('hidden');formImages=p?(Array.isArray(p.images)&&p.images.length?p.images.slice():[p.image]):[];renderFormImages();$('productFormTitle').textContent=p?'تعديل '+p.name:'إضافة حذاء جديد';f.elements.id.value=p?p.id:'';for(const k of ['name','description','price','oldPrice','category'])f.elements[k].value=p?p[k]:(k==='category'?'يومي':'');f.elements.sizes.value=p?p.sizes.join(','):'40,41,42,43,44';f.elements.available.value=p&&!p.available?'no':'yes';f.scrollIntoView({block:'nearest',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});}
