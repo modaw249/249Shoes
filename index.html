@@ -40,6 +40,13 @@
 document.addEventListener('DOMContentLoaded',()=>{
 'use strict';
 const $=id=>document.getElementById(id), all=s=>document.querySelectorAll(s);
+  const SUPABASE_URL = 'https://zwvvsrsxzmyqpcnmplvm.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_gO0iez5EfVzxS7SiL9T5Eg_eACH1DvR';
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
 const KEY='249shoes-store-v1', CART='249shoes-cart-v1';
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const safeImage=v=> typeof v==='string' && (/^https?:\/\//i.test(v)||/^data:image\/(png|jpeg|webp|gif);base64,/i.test(v))?v:'';
