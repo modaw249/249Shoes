@@ -1,0 +1,14 @@
+
+{
+  "name": "249Shoes",
+  "short_name": "249Shoes",
+  "description": "متجر 249Shoes للأحذية الرياضية",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#151515"
+}
