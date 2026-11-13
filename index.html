@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
 <title>249Shoes | خطوتك الجاية مختلفة</title>
 <meta name="description" content="249Shoes — أحذية رياضية بروح سودانية عصرية. اختر حذاءك ومقاسك واطلب مباشرة عبر واتساب.">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -37,13 +38,22 @@ input,textarea,select{font:inherit;width:100%;padding:9px 12px;border:1px solid 
 .mini{font-size:12px;border:1px solid var(--line);border-radius:8px;padding:4px 10px}.pe{border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:12px;background:#fff}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}#toast{position:fixed;bottom:24px;right:20px;background:var(--ink);color:#fff;border-radius:12px;padding:12px 20px;font-size:14px;z-index:100;display:none;max-width:90vw}
 @media(max-width:640px){.dgrid{grid-template-columns:1fr}.dgrid img{height:240px;min-height:0}.wa.hd{display:none}.grid{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}}
+
+.brand-lockup{display:flex;align-items:center;gap:7px;direction:rtl;white-space:nowrap;font-size:22px}
+.brand-mark{display:block;width:29px;height:29px;flex:0 0 29px}
+@media(max-width:380px){.brand-lockup{font-size:19px;gap:5px}.brand-mark{width:25px;height:25px;flex-basis:25px}}
+
 </style>
 </head>
 <body>
 <div id="announce" hidden></div>
-<header><div class="bar"><a href="#" class="logo disp" dir="ltr" id="sname">249Shoes.</a>
+<header><div class="bar"><a href="#" class="logo disp brand-lockup" dir="ltr" id="sname"><svg class="brand-mark" viewBox="0 0 64 64" role="img" aria-label="249Shoes logo">
+<rect x="2" y="2" width="60" height="60" rx="15" fill="#f27745"/>
+<path d="M17 22c0-5 4-8 10-8s10 3 10 8c0 4-2 6-6 9l-8 6h14v7H16v-6l14-11c2-2 3-3 3-5 0-2-2-4-5-4s-5 2-5 5h-6z" fill="#151515"/>
+<path d="M43 15h7v17h5v7h-5v5h-7v-5H32v-6l11-18zm0 17V25l-5 7h5z" fill="#151515"/>
+</svg><span>249Shoes.</span></a>
 <div class="hbtns"><button class="cartbtn" id="cartOpen" aria-label="حقيبة التسوق">🛍 الحقيبة<b id="cnt">0</b></button><a class="wa hd" data-wa href="#" target="_blank" rel="noopener">تواصل معنا</a></div></div></header>
-<main id="collection"><input class="search" id="q" type="search" placeholder="ابحث عن حذاء..." aria-label="بحث"><div class="grid" id="products"></div>
+<main id="collection"><div class="grid" id="products"></div>
 <p id="empty" hidden style="text-align:center;padding:60px 0">ما لقينا حذاء بالبحث دا. جرّب اسم تاني.</p></main>
 <section class="cta" id="ctaSec"><div><span><h2 id="ctaT"></h2><p id="ctaP" style="font-size:14px"></p></span><a data-wa href="#" target="_blank" rel="noopener">خلينا نتكلم</a></div></section>
 <footer><div class="bar"><span class="disp" style="font-size:22px;color:#fff" dir="ltr" id="sname2">249Shoes.</span>
@@ -73,7 +83,7 @@ input,textarea,select{font:inherit;width:100%;padding:9px 12px;border:1px solid 
 'use strict';
 const SUPABASE_URL='https://zwvvsrsxzmyqpcnmplvm.supabase.co';
 const SUPABASE_KEY='sb_publishable_gO0iez5EfVzxS7SiL9T5Eg_eACH1DvR';
-const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const supabaseClient=(window.supabase && typeof window.supabase.createClient==='function') ? window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY) : null;
 const DEF={s:{name:"249Shoes.",phone:"201100154634",currency:"ج.س",announce:"",ctaT:"محتار في المقاس؟",ctaP:"كلمنا على واتساب ونساعدك تختار المقاس المناسب."},
 p:[
 {id:"p1",name:"وايت كلاسيك",cat:"ستايل يومي",img:"photo-1584590069631-1c180f90a54c",price:45000,old:60000,sizes:"40,41,42,43,44",desc:"تصميم أبيض بسيط بروح رياضية، يناسب الجينز والإطلالة اليومية. اختيار عملي للجامعة والمشاوير."},
@@ -124,6 +134,7 @@ function openDetail(id){
 function need(){if(!size){$('#sizeErr').textContent='اختار المقاس أول.';return false}return true}
 async function loadStoreFromSupabase(){
  try{
+  if(!supabaseClient)throw new Error('تعذر تحميل مكتبة الاتصال؛ سيتم عرض المنتجات الافتراضية.');
   const [pr,sr]=await Promise.all([
    supabaseClient.from('store_products').select('id,data,sort_order').order('sort_order',{ascending:true}),
    supabaseClient.from('store_settings').select('data').eq('id',1).maybeSingle()
@@ -135,6 +146,7 @@ async function loadStoreFromSupabase(){
  }catch(e){console.error('Load error',e);toast('تعذر الاتصال بقاعدة البيانات؛ نعرض النسخة المحفوظة محلياً.');return false}
 }
 async function saveToSupabase(){
+ if(!supabaseClient){saveLocal();toast('الاتصال بقاعدة البيانات غير متاح حالياً.');return false}
  if(!adminSession){saveLocal();return false}
  try{
   const products=S.p.map((p,i)=>({id:String(p.id),data:p,sort_order:i,updated_at:new Date().toISOString()}));
@@ -156,6 +168,7 @@ async function saveToSupabase(){
 function saveLocal(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 function queueSave(){saveLocal();clearTimeout(saveTimer);saveTimer=setTimeout(()=>{if(adminSession)saveToSupabase()},900)}
 async function ensureInitialData(){
+ if(!supabaseClient)throw new Error('مكتبة Supabase لم يتم تحميلها.');
  const {data:pr,error}=await supabaseClient.from('store_products').select('id').limit(1);
  if(error)throw error;
  const {data:sr,error:se}=await supabaseClient.from('store_settings').select('id').eq('id',1).maybeSingle();
@@ -169,6 +182,7 @@ async function ensureInitialData(){
 }
 async function loginAdmin(){
  try{
+  if(!supabaseClient)throw new Error('تعذر تحميل خدمة تسجيل الدخول؛ تحقق من الإنترنت ثم أعد المحاولة.');
   let {data:{session}}=await supabaseClient.auth.getSession();
   if(!session){
    const email=prompt('أدخل بريد المدير الإلكتروني:');if(!email)return;
@@ -193,7 +207,6 @@ function adminRender(){
  <label>الوصف<textarea data-k="desc" rows="2">${esc(p.desc)}</textarea></label>
  <button class="mini" data-del="${i}" style="margin-top:10px;color:#b91c1c">حذف المنتج</button></div>`).join('');
 }
-$('#q').oninput=render;
 document.addEventListener('click',e=>{
  const d=e.target.closest('[data-d]');if(d){openDetail(d.dataset.d);return}
  if(e.target.closest('[data-close]'))e.target.closest('dialog').close();
