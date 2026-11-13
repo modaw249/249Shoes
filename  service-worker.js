@@ -1,3 +1,4 @@
+
 const CACHE_NAME = "249shoes-v1";
 const APP_URL = new URL("./", self.location).href;
 
@@ -25,7 +26,6 @@ self.addEventListener("fetch", event => {
   const request = event.request;
 
   if (request.method !== "GET") return;
-
   if (new URL(request.url).origin !== self.location.origin) return;
 
   if (request.mode === "navigate") {
