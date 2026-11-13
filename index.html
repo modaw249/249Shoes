@@ -13,11 +13,7 @@
 button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
 .disp{font-family:'Space Grotesk',Cairo,sans-serif}#announce{background:var(--orange);text-align:center;padding:8px 16px;font-weight:700;font-size:13px}
 header{background:var(--ink);color:#fff}.bar{max-width:1200px;margin:auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.brand{display:flex;align-items:center;gap:12px;min-width:0}
-.brand img{width:76px;height:76px;object-fit:contain;border-radius:18px;flex:0 0 auto}
-.logo{font-size:26px;font-weight:700;letter-spacing:-.5px;white-space:nowrap}
-.hbtns{display:flex;gap:10px;align-items:center}
-@media(max-width:640px){.bar{padding:12px 16px}.brand{gap:10px}.brand img{width:76px;height:76px;border-radius:17px}.logo{font-size:24px}.cartbtn{padding:7px 10px;font-size:13px}}.cartbtn{position:relative;padding:8px 14px;border:1px solid #52525b;border-radius:10px;font-size:14px}
+.logo{font-size:24px;font-weight:700;letter-spacing:-.5px}.hbtns{display:flex;gap:10px;align-items:center}.cartbtn{position:relative;padding:8px 14px;border:1px solid #52525b;border-radius:10px;font-size:14px}
 .cartbtn b{background:var(--orange);color:var(--ink);border-radius:99px;padding:0 7px;margin-inline-start:6px;font-size:12px}.wa{background:var(--green);color:#fff;border-radius:10px;padding:8px 16px;font-weight:700;font-size:14px}
 .wa:hover{background:#106337}main{max-width:1200px;margin:auto;padding:28px 20px}.search{width:100%;max-width:360px;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:#fff;margin-bottom:22px;font:inherit}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:30px 22px}.card .img{display:block;position:relative;width:100%;aspect-ratio:1.27;background:#e8e6e1;border-radius:16px;overflow:hidden}
@@ -45,7 +41,182 @@ input,textarea,select{font:inherit;width:100%;padding:9px 12px;border:1px solid 
 </head>
 <body>
 <div id="announce" hidden></div>
-<header><div class="bar"><div class="brand">
-<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABOYAAATmCAYAAACF/K4qAAAQAElEQVR4Aez9ifck2XXfid0bWd0ASALovRsbQZBaqGVEUkPK1hnZ1njGMx4v51i2xGNbMz6WdazhkNh6wb4TICGKO0EsJMFV5Mg+84+IJIBGdy3dICUOQaC7tq7eq7qqesn5fm7Ei3wR+WLLzF9V9Yi/jm+8++793u+970VkZvzy1w1UZrYeg5fi7qM5Sc/FS0i+NCY/Y/KNjl7os9E3jaDW2u4NP+sAozX6ay3VNF+HHjWxlYNuwiJ95Y7yqQ9yHnVB7uvZqZf+mGrht76uNNp1oS+kuYsLUn4+4ge5L9nUSUi+dpR+a6v2LnbSZtzO716nFIcL0rw0unpL6Mfx932m+8B6a6BGjoiHrun+qRHXoNlb74z0buuISzfXcTQaX2jKnjtGLvlCKSfV6cfqPIu++7F95rUuaxW0h6l+Go0+wYI19vtJNfr+0hxuqunN9Sjxks/VW9trr0f8idcfx2I5F14Lagn0F3Wx+zXl89S3xlxryiavz/Fcr1CrxO/70rxdh3RqXV1z6ad4GuvY9L220fN1ym1H6Trrb4Dt+KgttLwJu64hfeUO5aA7FMv9tZbWpZphqzdyseExdjBSE/4coN/n4Quoj36sNA9uoZeNX/vDa1ccT2PYm7WWdDs+7UVnTm8FX6rJuMUnp4+sj5Zf8vXzYs66bPveiljJv5Rva5dWQD21/cnXt4MT/kIN7ZMLBoJjxZ5bjUItl68F1xDkPtkmJA3Gfo+lOZol/5AP3QC1EtRLn1/SjbyB9RPra5Tm6ALW2iLTRAeUcvf1UReM6VAbDhjjlWKRy1q0r6X4wXwT+qmPsTW0HPqdgZJWrkGceWmNxEr+OT5yE/p8/HN8fQ5zek1gnqOkm8ePwqaXvm7RN3XtFY/+Nfb12jkxMHndeS8E3fe7vC9qgVZ7UrOrRR75feCfxnZvUzn0nsMm3tNLeqlX0x4mO40FfvGzIvHIS/acET79J27Y6iPNdx+39zJqoQ2y60pN0K+V+IxbMeWTA/qxobnr2rRo8vtcV29ogn5sak4OsObzr7ZL96etPXphj4C115ScBFOPY6g1LLRynrMGoeOTFrq5b8p29TjIUcxVo4X04VIDcC8zL4I88eElWOixFtd6NijmK3eun/7mcnfh5fp8MSeN4YOr3I/6uuTts5jXvHWB3/oKMTL78Fqq4059EAMEdXEYOmhrdbwzJoWa9XWsc3X9a2OPM/2CkgRrAnmMmiD3TdksA1AHwO/r4ot9EpF9BaZrg08DJpQeklrP3ZtKsuex+u3Gyj8l1ZKvnJ28m6rsF/kgRcdG1mykgx4xYj1fSTelMgI4gNS0n1wDQK3kq0dl6CBGjkwoNSAgMgHytiiN0Nw1pPwSP8X2GdFtWtLa1kJPjbWCnnvJNGos0Ig9n8tveKyh31PJlzilWOl6JR5jlNIpXpdJqDey1tjESOgFJ6aSLjAQkrsZZLVH1GpntVHy1ZHNuyZSqVaJX/Iljblj2iP2FNQ1Oc9VMH22W/OjvNRw4+kMY7EOsZ5Irb5EMtJa6ZGoXBELe6EuOX0k/Y4fXdBxDk/QAH1GerXSO2gb7xFZU8+1PS2RCr5SH9timSdbJz0GMl/G3DL5zNhyjjiW8nOpueuiRqxBye3Y7BPvW3JPH6X1NxqRHMJyiEdfNSx7PWxey5b9kJZNwyQ3jIUn8tRBZKX7LCbNiXhjbg1eaCRpbZEHHOxlQHHkEjQ9soM1gckCzXWZ5A0RlD8UOoSffdvW2faMrXXp9SppJQ3GFOc6FjrZdi30JP08ba4vz+nb9L7lK1y/0rpKvr7W3Hmxj0Jyac0Fmt5ASoo1k/sH1LPhc/1eWNZh7e6clV+mKDB9NArqV4f2XYd+D5on2OZmZbzzLpoFZLrAgTrAnrMP8BI8049cNRzXJAkm4swxcmdyoSW+ ... [١٩٤٥ KB more on this line: see the Edit tab]
- 
---- File truncated at 1953 KB to avoid running out of memory ---
+<header><div class="bar"><a href="#" class="logo disp" dir="ltr" id="sname">249Shoes.</a>
+<div class="hbtns"><button class="cartbtn" id="cartOpen" aria-label="حقيبة التسوق">🛍 الحقيبة<b id="cnt">0</b></button><a class="wa hd" data-wa href="#" target="_blank" rel="noopener">تواصل معنا</a></div></div></header>
+<main id="collection"><input class="search" id="q" type="search" placeholder="ابحث عن حذاء..." aria-label="بحث"><div class="grid" id="products"></div>
+<p id="empty" hidden style="text-align:center;padding:60px 0">ما لقينا حذاء بالبحث دا. جرّب اسم تاني.</p></main>
+<section class="cta" id="ctaSec"><div><span><h2 id="ctaT"></h2><p id="ctaP" style="font-size:14px"></p></span><a data-wa href="#" target="_blank" rel="noopener">خلينا نتكلم</a></div></section>
+<footer><div class="bar"><span class="disp" style="font-size:22px;color:#fff" dir="ltr" id="sname2">249Shoes.</span>
+<span style="display:flex;gap:22px;flex-wrap:wrap"><button id="guideOpen">دليل المقاسات</button><button id="adminOpen">⚙ إدارة المتجر</button><button id="dl">⬇ تنزيل ملف HTML</button></span>
+<span>© 2026 249Shoes — كل الحقوق محفوظة.</span><span class="flag"><i style="background:#dc2626"></i><i style="background:#fff"></i><i style="background:#16a34a"></i></span></div></footer>
+<a class="wafab" data-wa href="#" target="_blank" rel="noopener" aria-label="واتساب">✆</a><div id="toast" role="status"></div>
+<dialog id="detail"><div style="position:relative"><button class="x" data-close aria-label="إغلاق">✕</button><div class="dgrid"><img id="dImg" alt=""><div class="dbody">
+<p class="cat" id="dCat"></p><h2 id="dName" style="font-size:30px;font-weight:800"></h2><p id="dDesc" style="font-size:14px;color:#52525b;margin-top:10px"></p><div class="price" id="dPrice"></div>
+<h3 style="font-size:14px;margin-top:18px">اختار مقاسك (EU)</h3><div class="sizes" id="dSizes"></div><label>الكمية<input id="dQty" type="number" min="1" max="20" value="1" style="width:80px;text-align:center;display:block;margin-top:4px"></label>
+<p class="err" id="sizeErr" role="alert"></p><button class="btn b1" id="dOrder">اطلب الآن على واتساب</button><button class="btn b2" id="dAdd">أضف للحقيبة</button>
+<p style="font-size:11px;color:var(--mut);margin-top:12px">التوفر ورسوم التوصيل وموعد الاستلام تُؤكد عبر واتساب. السعر لا يشمل التوصيل. <strong style="color:var(--ink)">الدفع عند الاستلام.</strong></p>
+</div></div></div></dialog>
+<dialog id="cartD"><div class="pad" style="display:flex;justify-content:space-between"><h2>حقيبة التسوق</h2><button data-close aria-label="إغلاق">✕</button></div><div class="pad" id="cartBody" style="padding-top:0"></div></dialog>
+<dialog id="guideD"><div class="pad"><div style="display:flex;justify-content:space-between;margin-bottom:14px"><h2>دليل المقاسات</h2><button data-close aria-label="إغلاق">✕</button></div>
+<p style="font-size:14px;color:#52525b;margin-bottom:14px">قِس طول قدمك من الكعب لأطول إصبع. الأرقام تقريبية وقد تختلف حسب الموديل؛ تأكد معانا قبل الطلب.</p>
+<table><thead><tr><th>المقاس الأوروبي</th><th>طول القدم (سم)</th></tr></thead><tbody class="disp"><tr><td>39</td><td>24.5</td></tr><tr><td>40</td><td>25</td></tr><tr><td>41</td><td>26</td></tr><tr><td>42</td><td>26.5</td></tr><tr><td>43</td><td>27.5</td></tr><tr><td>44</td><td>28</td></tr><tr><td>45</td><td>29</td></tr></tbody></table></div></dialog>
+<dialog id="adminD" style="max-width:900px"><div class="pad"><div style="display:flex;justify-content:space-between;margin-bottom:12px"><div><h2>لوحة إدارة 249Shoes</h2><p style="font-size:12px;color:var(--mut)">التعديلات تُحفظ في قاعدة بيانات المتجر وتظهر للزوار.</p></div><button data-close aria-label="إغلاق">✕</button></div>
+<h3>إعدادات المتجر</h3><form id="sf"><label>اسم المتجر<input name="name" dir="ltr" required></label>
+<label>رقم واتساب مع رمز الدولة<input name="phone" dir="ltr" pattern="\+?[0-9]{8,15}" required></label><label>العملة<input name="currency" required></label>
+<label>نص الشريط البرتقالي العلوي (فارغ = إخفاء)<input name="announce"></label><label>عنوان قسم "محتار في المقاس" (فارغ = حذف)<input name="ctaT"></label>
+<label>النص تحت العنوان<input name="ctaP"></label><button class="btn b1" type="submit">حفظ الإعدادات</button></form>
+<h3 style="margin-top:26px">المنتجات</h3><div id="pl"></div><button class="btn b2" id="addP">+ منتج جديد</button>
+<button class="btn" id="reset" style="color:#b91c1c">استرجاع الإعدادات الأصلية</button><button class="btn b2" id="logout">تسجيل خروج المدير</button>
+</div></dialog>
+<script id="seed" type="application/json">null</script>
+<script>
+'use strict';
+const SUPABASE_URL='https://zwvvsrsxzmyqpcnmplvm.supabase.co';
+const SUPABASE_KEY='sb_publishable_gO0iez5EfVzxS7SiL9T5Eg_eACH1DvR';
+const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const DEF={s:{name:"249Shoes.",phone:"201100154634",currency:"ج.س",announce:"",ctaT:"محتار في المقاس؟",ctaP:"كلمنا على واتساب ونساعدك تختار المقاس المناسب."},
+p:[
+{id:"p1",name:"وايت كلاسيك",cat:"ستايل يومي",img:"photo-1584590069631-1c180f90a54c",price:45000,old:60000,sizes:"40,41,42,43,44",desc:"تصميم أبيض بسيط بروح رياضية، يناسب الجينز والإطلالة اليومية. اختيار عملي للجامعة والمشاوير."},
+{id:"p2",name:"إير فريش",cat:"جري ورياضة",img:"photo-1603631540071-832424f35a71",price:58000,old:72000,sizes:"39,40,41,42,43",desc:"ألوان الأبيض والأزرق والأخضر في تصميم رياضي لافت. ستايل مختلف يضيف لمسة جديدة لإطلالتك."},
+{id:"p3",name:"مونكروم سبورت",cat:"ستايل يومي",img:"photo-1615791966446-c61de437fc66",price:52000,old:65000,sizes:"40,41,42,43,44,45",desc:"مزيج الأبيض والأسود لستايل سهل التنسيق. تصميم رياضي يناسب إطلالاتك اليومية المتنوعة."},
+{id:"p4",name:"ريد رانر",cat:"جري ورياضة",img:"photo-1572710029599-1e1ffe84493f",price:48000,old:62000,sizes:"40,41,42,43,44",desc:"حذاء رياضي بالأحمر والأسود، مظهر حيوي لعشاق الحركة والستايل الجريء. اسألنا عن تفاصيل الموديل قبل الطلب."},
+{id:"p5",name:"ستريت 249",cat:"ستايل يومي",img:"photo-1563996604449-d3835b4270e4",price:68000,old:85000,sizes:"41,42,43,44,45",desc:"تصميم مستوحى من ثقافة الشارع بألوان الأسود والأبيض والأحمر. قطعة مميزة تكمل إطلالتك الكاجوال."},
+{id:"p6",name:"أوربان هاي",cat:"ستايل يومي",img:"photo-1615290642882-6b9501729a27",price:75000,old:95000,sizes:"40,41,42,43,44",desc:"قصة مرتفعة وألوان متباينة لستايل واضح الحضور. اختاره مع بنطلون واسع أو جينز لإطلالة عصرية."}]};
+const $=s=>document.querySelector(s),KEY='249shoes_v1';
+const seed=JSON.parse($('#seed').textContent||'null');
+let S;try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){}
+S=S||seed||structuredClone(DEF);
+let cart=[],cur=null,size=null,adminSession=false,saveTimer=null;
+const fmt=n=>Number(n).toLocaleString('en-US')+' '+S.s.currency;
+const imgUrl=i=>i&&i.startsWith('http')?i:`https://images.unsplash.com/${i}?auto=format&fit=crop&w=800&q=80`;
+const sizes=p=>String(p.sizes||'').split(',').map(x=>x.trim()).filter(Boolean);
+const disc=p=>p.old>p.price?Math.round((1-p.price/p.old)*100):0;
+const wa=t=>`https://wa.me/${S.s.phone.replace(/\D/g,'')}?text=${encodeURIComponent(t)}`;
+function toast(t){const e=$('#toast');e.textContent=t;e.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.display='none',3500)}
+function esc(s){return String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function render(){
+ const s=S.s;$('#sname').textContent=$('#sname2').textContent=s.name;
+ document.querySelectorAll('[data-wa]').forEach(a=>a.href=wa(`السلام عليكم ${s.name}، عايز أستفسر عن الأحذية.`));
+ const an=$('#announce');an.hidden=!s.announce;an.textContent=s.announce;
+ $('#ctaSec').hidden=!s.ctaT;$('#ctaT').textContent=s.ctaT;$('#ctaP').textContent=s.ctaP;
+ const q=$('#q').value.trim().toLowerCase(),list=S.p.filter(p=>!q||(p.name+p.cat).toLowerCase().includes(q));
+ $('#empty').hidden=list.length>0;
+ $('#products').innerHTML=list.map(p=>`<article class="card"><button class="img" data-d="${esc(p.id)}" aria-label="عرض ${esc(p.name)}"><img src="${esc(imgUrl(p.img))}" alt="${esc(p.name)}" loading="lazy">${disc(p)?`<span class="badge">خصم ${disc(p)}%</span>`:''}</button>
+ <p class="cat">${esc(p.cat)} / <span class="disp">249 EDIT</span></p><h3>${esc(p.name)}</h3><p class="d">${esc(p.desc)}</p>
+ <div class="price"><strong class="disp">${fmt(p.price)}</strong>${disc(p)?`<del class="disp">${fmt(p.old)}</del>`:''}</div>
+ <div class="foot"><span>المقاسات <span class="disp" dir="ltr">${sizes(p).join(' · ')}</span></span><button class="plus" data-d="${esc(p.id)}" aria-label="اختيار مقاس ${esc(p.name)}">+</button></div></article>`).join('');
+ $('#cnt').textContent=cart.reduce((a,c)=>a+c.qty,0);
+}
+function renderCart(){
+ const b=$('#cartBody');if(!cart.length){b.innerHTML='<p style="color:var(--mut)">الحقيبة فاضية. اختار حذاءك ومقاسك.</p>';return}
+ const valid=cart.filter(c=>S.p.some(p=>p.id===c.id));
+ const tot=valid.reduce((a,c)=>a+S.p.find(p=>p.id===c.id).price*c.qty,0);
+ b.innerHTML=valid.map(c=>{const p=S.p.find(x=>x.id===c.id);return`<div class="row"><span><b>${esc(p.name)}</b><br><small>مقاس ${esc(c.size)} × ${c.qty} — ${fmt(p.price*c.qty)}</small></span><button class="mini" data-rm="${cart.indexOf(c)}">حذف</button></div>`}).join('')+
+ `<div class="row"><b>الإجمالي (بدون توصيل)</b><b>${fmt(tot)}</b></div><button class="btn b1" id="cartOrder">أرسل الطلب على واتساب</button>`;
+}
+function openDetail(id){
+ cur=S.p.find(p=>p.id===id);size=null;if(!cur)return;
+ $('#dImg').src=imgUrl(cur.img);$('#dImg').alt=cur.name;$('#dCat').textContent=cur.cat+' / 249 EDIT';$('#dName').textContent=cur.name;$('#dDesc').textContent=cur.desc;
+ $('#dPrice').innerHTML=`<strong style="font-size:20px">${fmt(cur.price)}</strong>${disc(cur)?`<del>${fmt(cur.old)}</del><b style="color:var(--orange);font-size:12px">-${disc(cur)}%</b>`:''}`;
+ $('#dSizes').innerHTML=sizes(cur).map(z=>`<button class="sz disp" data-z="${esc(z)}" aria-pressed="false">${esc(z)}</button>`).join('');
+ $('#dQty').value=1;$('#sizeErr').textContent='';$('#detail').showModal();
+}
+function need(){if(!size){$('#sizeErr').textContent='اختار المقاس أول.';return false}return true}
+async function loadStoreFromSupabase(){
+ try{
+  const [pr,sr]=await Promise.all([
+   supabaseClient.from('store_products').select('id,data,sort_order').order('sort_order',{ascending:true}),
+   supabaseClient.from('store_settings').select('data').eq('id',1).maybeSingle()
+  ]);
+  if(pr.error)throw pr.error;if(sr.error)throw sr.error;
+  if(pr.data&&pr.data.length)S.p=pr.data.map(r=>r.data);
+  if(sr.data&&sr.data.data)S.s=sr.data.data;
+  localStorage.setItem(KEY,JSON.stringify(S));return true;
+ }catch(e){console.error('Load error',e);toast('تعذر الاتصال بقاعدة البيانات؛ نعرض النسخة المحفوظة محلياً.');return false}
+}
+async function saveToSupabase(){
+ if(!adminSession){saveLocal();return false}
+ try{
+  const products=S.p.map((p,i)=>({id:String(p.id),data:p,sort_order:i,updated_at:new Date().toISOString()}));
+  if(products.length){
+   const {error}=await supabaseClient.from('store_products').upsert(products,{onConflict:'id'});if(error)throw error;
+  }
+  const currentIds=S.p.map(p=>String(p.id));
+  if(currentIds.length){
+   const {data:rows,error}=await supabaseClient.from('store_products').select('id');if(error)throw error;
+   const obsolete=(rows||[]).filter(r=>!currentIds.includes(r.id)).map(r=>r.id);
+   if(obsolete.length){const {error:de}=await supabaseClient.from('store_products').delete().in('id',obsolete);if(de)throw de}
+  }else{
+   const {error}=await supabaseClient.from('store_products').delete().neq('id','');if(error)throw error;
+  }
+  const {error:se}=await supabaseClient.from('store_settings').upsert({id:1,data:S.s,updated_at:new Date().toISOString()},{onConflict:'id'});if(se)throw se;
+  saveLocal();return true;
+ }catch(e){console.error('Save error',e);toast('لم يتم الحفظ في قاعدة البيانات: '+(e.message||'خطأ غير معروف'));return false}
+}
+function saveLocal(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function queueSave(){saveLocal();clearTimeout(saveTimer);saveTimer=setTimeout(()=>{if(adminSession)saveToSupabase()},900)}
+async function ensureInitialData(){
+ const {data:pr,error}=await supabaseClient.from('store_products').select('id').limit(1);
+ if(error)throw error;
+ const {data:sr,error:se}=await supabaseClient.from('store_settings').select('id').eq('id',1).maybeSingle();
+ if(se)throw se;
+ if((!pr||pr.length===0)&&!sr){
+  const rows=S.p.map((p,i)=>({id:String(p.id),data:p,sort_order:i}));
+  if(rows.length){const {error:e}=await supabaseClient.from('store_products').upsert(rows,{onConflict:'id'});if(e)throw e}
+  const {error:e}=await supabaseClient.from('store_settings').upsert({id:1,data:S.s},{onConflict:'id'});if(e)throw e;
+  toast('تم نقل المنتجات والإعدادات الأولية إلى قاعدة البيانات.');
+ }
+}
+async function loginAdmin(){
+ try{
+  let {data:{session}}=await supabaseClient.auth.getSession();
+  if(!session){
+   const email=prompt('أدخل بريد المدير الإلكتروني:');if(!email)return;
+   const password=prompt('أدخل كلمة مرور المدير:');if(!password)return;
+   const {data,error}=await supabaseClient.auth.signInWithPassword({email,password});
+   if(error)throw error;session=data.session;
+  }
+  const {data:isAdmin,error}=await supabaseClient.rpc('is_store_admin');
+  if(error||!isAdmin){await supabaseClient.auth.signOut();throw new Error('هذا الحساب ليس لديه صلاحية مدير.')}
+  adminSession=true;
+  await ensureInitialData();
+  await loadStoreFromSupabase();
+  adminRender();render();$('#adminD').showModal();
+ }catch(e){console.error(e);toast('تعذر دخول المدير: '+(e.message||'راجع البريد وكلمة المرور'))}
+}
+function adminRender(){
+ const f=$('#sf');for(const k in S.s)if(f.elements[k])f.elements[k].value=S.s[k];
+ $('#pl').innerHTML=S.p.map((p,i)=>`<div class="pe" data-i="${i}"><div class="g2">
+ <label>الاسم<input data-k="name" value="${esc(p.name)}"></label><label>التصنيف<input data-k="cat" value="${esc(p.cat)}"></label>
+ <label>السعر<input data-k="price" type="number" value="${Number(p.price)||0}"></label><label>السعر قبل الخصم<input data-k="old" type="number" value="${Number(p.old)||0}"></label>
+ <label>المقاسات (بفاصلة)<input data-k="sizes" dir="ltr" value="${esc(p.sizes)}"></label><label>رابط الصورة أو معرّف Unsplash<input data-k="img" dir="ltr" value="${esc(p.img)}"></label></div>
+ <label>الوصف<textarea data-k="desc" rows="2">${esc(p.desc)}</textarea></label>
+ <button class="mini" data-del="${i}" style="margin-top:10px;color:#b91c1c">حذف المنتج</button></div>`).join('');
+}
+$('#q').oninput=render;
+document.addEventListener('click',e=>{
+ const d=e.target.closest('[data-d]');if(d){openDetail(d.dataset.d);return}
+ if(e.target.closest('[data-close]'))e.target.closest('dialog').close();
+});
+$('#dSizes').onclick=e=>{const b=e.target.closest('[data-z]');if(!b)return;size=b.dataset.z;$('#sizeErr').textContent='';document.querySelectorAll('.sz').forEach(x=>x.setAttribute('aria-pressed',x===b))};
+const qty=()=>Math.min(20,Math.max(1,parseInt($('#dQty').value)||1));
+$('#dAdd').onclick=()=>{if(!need())return;const f=cart.find(c=>c.id===cur.id&&c.size===size);f?f.qty+=qty():cart.push({id:cur.id,size,qty:qty()});$('#detail').close();render();toast('اتضاف للحقيبة ✓')};
+$('#dOrder').onclick=()=>{if(!need())return;open(wa(`السلام عليكم ${S.s.name}\nعايز أطلب:\n- ${cur.name} | مقاس ${size} | الكمية ${qty()} | ${fmt(cur.price*qty())}\nالدفع عند الاستلام.`),'_blank')};
+$('#cartBody').onclick=e=>{
+ const r=e.target.closest('[data-rm]');if(r){cart.splice(+r.dataset.rm,1);renderCart();render()}
+ if(e.target.id==='cartOrder'){const lines=cart.map(c=>{const p=S.p.find(x=>x.id===c.id);return p?`- ${p.name} | مقاس ${c.size} | ${c.qty} | ${fmt(p.price*c.qty)}`:''}).filter(Boolean).join('\n');open(wa(`السلام عليكم ${S.s.name}\nعايز أطلب:\n${lines}\nالدفع عند الاستلام.`),'_blank')}
+};
+$('#cartOpen').onclick=()=>{renderCart();$('#cartD').showModal()};
+$('#guideOpen').onclick=()=>$('#guideD').showModal();
+$('#adminOpen').onclick=loginAdmin;
+$('#sf').onsubmit=async e=>{e.preventDefault();new FormData(e.target).forEach((v,k)=>S.s[k]=v.trim());const ok=await saveToSupabase();render();toast(ok?'تم حفظ الإعدادات في قاعدة البيانات ✓':'تعذر حفظ الإعدادات؛ تحقق من الاتصال.')};
+$('#pl').onchange=e=>{const k=e.target.dataset.k;if(!k)return;const p=S.p[e.target.closest('.pe').dataset.i];p[k]=(k==='price'||k==='old')?+e.target.value||0:e.target.value;queueSave();render()};
+$('#pl').onclick=async e=>{const d=e.target.closest('[data-del]');if(d&&confirm('حذف المنتج؟')){S.p.splice(+d.dataset.del,1);cart=cart.filter(c=>S.p.some(p=>p.id===c.id));adminRender();render();const ok=await saveToSupabase();toast(ok?'تم حذف المنتج وحفظ التغيير.':'تعذر حذف المنتج من قاعدة البيانات.')}};
+$('#addP').onclick=async()=>{S.p.push({id:'p'+Date.now(),name:'حذاء جديد',cat:'ستايل يومي',img:DEF.p[0].img,price:50000,old:60000,sizes:'40,41,42,43',desc:'وصف الحذاء.'});adminRender();render();const ok=await saveToSupabase();toast(ok?'تمت إضافة المنتج.':'تعذر حفظ المنتج.')};
+$('#reset').onclick=async()=>{if(confirm('استرجاع البيانات الأصلية وحفظها في المتجر لجميع الزوار؟')){S=structuredClone(DEF);cart=[];adminRender();render();const ok=await saveToSupabase();toast(ok?'تم استرجاع البيانات الأصلية.':'تعذر حفظ الاسترجاع.')}};
+$('#logout').onclick=async()=>{await supabaseClient.auth.signOut();adminSession=false;$('#adminD').close();toast('تم تسجيل خروج المدير.')};
+$('#dl').onclick=()=>{const sd=$('#seed'),old=sd.textContent;sd.textContent=JSON.stringify(S).replace(/</g,'\\u003c');const file='<!DOCTYPE html>\n'+document.documentElement.outerHTML;sd.textContent=old;const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([file],{type:'text/html'}));a.download='249shoes.html';a.click();URL.revokeObjectURL(a.href)};
+(async()=>{await loadStoreFromSupabase();render()})();
+</script>
+</body>
+</html>
