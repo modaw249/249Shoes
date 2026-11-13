@@ -220,5 +220,20 @@ $('#logout').onclick=async()=>{await supabaseClient.auth.signOut();adminSession=
 $('#dl').onclick=()=>{const sd=$('#seed'),old=sd.textContent;sd.textContent=JSON.stringify(S).replace(/</g,'\\u003c');const file='<!DOCTYPE html>\n'+document.documentElement.outerHTML;sd.textContent=old;const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([file],{type:'text/html'}));a.download='249shoes.html';a.click();URL.revokeObjectURL(a.href)};
 (async()=>{await loadStoreFromSupabase();render()})();
 </script>
+ 
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function () {
+    navigator.serviceWorker.register("./%20service-worker.js")
+      .then(function () {
+        console.log("249Shoes App Ready");
+      })
+      .catch(function (error) {
+        console.error("Service Worker Error:", error);
+      });
+  });
+}
+</script>
+
 </body>
 </html>
