@@ -35,6 +35,9 @@ jobs:
       - name: Create Android project
         run: |
           mkdir -p app/src/main/java/com/twoshoes/app
+          mkdir -p app/src/main/res/drawable-nodpi
+
+          cp 249shoes-icon.png app/src/main/res/drawable-nodpi/ic_launcher.png
 
           cat > settings.gradle <<'EOF'
           pluginManagement {
@@ -74,8 +77,8 @@ jobs:
                   applicationId 'com.twoshoes.app'
                   minSdk 23
                   targetSdk 35
-                  versionCode 1
-                  versionName '1.0'
+                  versionCode 2
+                  versionName '1.1'
               }
           }
           EOF
@@ -83,17 +86,23 @@ jobs:
           cat > app/src/main/AndroidManifest.xml <<'EOF'
           <manifest xmlns:android="http://schemas.android.com/apk/res/android">
               <uses-permission android:name="android.permission.INTERNET"/>
+
               <application
                   android:theme="@android:style/Theme.Material.Light.NoActionBar"
                   android:label="249Shoes"
+                  android:icon="@drawable/ic_launcher"
+                  android:roundIcon="@drawable/ic_launcher"
                   android:usesCleartextTraffic="true">
+
                   <activity
                       android:name=".MainActivity"
                       android:exported="true">
+
                       <intent-filter>
                           <action android:name="android.intent.action.MAIN"/>
                           <category android:name="android.intent.category.LAUNCHER"/>
                       </intent-filter>
+
                   </activity>
               </application>
           </manifest>
@@ -109,25 +118,34 @@ jobs:
           import android.webkit.WebSettings;
 
           public class MainActivity extends Activity {
+
+              private WebView webView;
+
               @Override
               protected void onCreate(Bundle savedInstanceState) {
                   super.onCreate(savedInstanceState);
 
-                  WebView webView = new WebView(this);
+                  webView = new WebView(this);
+
                   WebSettings settings = webView.getSettings();
                   settings.setJavaScriptEnabled(true);
                   settings.setDomStorageEnabled(true);
                   settings.setDatabaseEnabled(true);
 
                   webView.setWebViewClient(new WebViewClient());
+
                   setContentView(webView);
+
                   webView.loadUrl("https://modaw249.github.io/249Shoes/");
               }
 
               @Override
               public void onBackPressed() {
-                  WebView webView = (WebView) findViewById(android.R.id.content).getRootView();
-                  super.onBackPressed();
+                  if (webView != null && webView.canGoBack()) {
+                      webView.goBack();
+                  } else {
+                      super.onBackPressed();
+                  }
               }
           }
           EOF
@@ -138,6 +156,6 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: 249Shoes-APK
+          name: 249Shoes-APK-Final
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
